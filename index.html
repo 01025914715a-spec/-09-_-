@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TVING PPT 장표 설계 가이드</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <style>
+      :root {
+        --bg-color: #0d0d0d;
+        --card-bg: #141414;
+        --tving-red: #ff153c;
+        --text-main: #ffffff;
+        --text-sub: #a3a3a3;
+        --text-dim: #666666;
+        --border-color: #262626;
+      }
+
+      body {
+        margin: 0;
+        padding: 60px 40px;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family:
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          system-ui,
+          Roboto,
+          sans-serif;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 60px;
+      }
+      .logo {
+        color: var(--tving-red);
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+      .header-title {
+        color: var(--text-dim);
+        font-size: 14px;
+        letter-spacing: 0.5px;
+      }
+
+      section {
+        margin-bottom: 80px;
+      }
+      .section-title {
+        color: var(--text-dim);
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 24px;
+      }
+
+      .flow-container {
+        display: flex;
+        align-items: stretch;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 30px 40px;
+        gap: 15px;
+      }
+
+      .flow-step {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .flow-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+      }
+
+      .circle-arrow {
+        width: 20px;
+        height: 20px;
+        background-color: var(--tving-red);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .step-number {
+        color: var(--text-dim);
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+      .step-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .step-desc {
+        color: var(--text-dim);
+        font-size: 13px;
+        margin-bottom: 16px;
+      }
+      .step-highlight {
+        color: var(--tving-red);
+        font-size: 28px;
+        font-weight: 700;
+        margin-top: auto;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 36px;
+      }
+      .card.highlight {
+        border-color: var(--tving-red);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      .card-subtitle {
+        color: var(--tving-red);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .badge {
+        background: rgba(255, 21, 60, 0.1);
+        color: var(--tving-red);
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .card-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .card-desc {
+        color: var(--text-sub);
+        font-size: 15px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        min-height: 48px;
+      }
+
+      .elements-title {
+        color: var(--text-dim);
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+      .elements {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 30px;
+      }
+      .element-tag {
+        border: 1px solid var(--border-color);
+        color: var(--text-sub);
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+      }
+      .element-tag.red {
+        border-color: rgba(255, 21, 60, 0.4);
+        color: #ff8a9d;
+      }
+      .element-tag.yellow {
+        border-color: rgba(255, 184, 0, 0.4);
+        color: #ffb800;
+      }
+      .element-tag.blue {
+        border-color: rgba(0, 133, 255, 0.4);
+        color: #0085ff;
+      }
+
+      .card-tip {
+        color: var(--text-dim);
+        font-size: 14px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-color);
+        line-height: 1.6;
+      }
+
+      .rules-container {
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 40px;
+      }
+      .rules-title {
+        color: var(--text-dim);
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+      .rules-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px 40px;
+      }
+      .rule-item {
+        position: relative;
+        padding-left: 20px;
+      }
+      .rule-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 5px;
+        height: 5px;
+        background: var(--tving-red);
+        border-radius: 50%;
+      }
+      .rule-item strong {
+        color: var(--text-main);
+        font-weight: 600;
+      }
+      .rule-item span {
+        color: var(--text-sub);
+        font-size: 15px;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 80px;
+        color: var(--text-dim);
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">tving</div>
+        <div class="header-title">PPT 장표 설계 가이드 · UX Research 2025</div>
+      </header>
+
+      <section>
+        <div class="section-title">전체 장표 흐름 — 5장 구성</div>
+        <div class="flow-container">
+          <div class="flow-step">
+            <div class="step-number">SLIDE 01</div>
+            <div class="step-title">리서치 개요</div>
+            <div class="step-desc">왜 조사했나, 규모</div>
+            <div class="step-highlight">6,540건</div>
+          </div>
+
+          <div class="flow-divider"><div class="circle-arrow">▶</div></div>
+
+          <div class="flow-step">
+            <div class="step-number">SLIDE 02</div>
+            <div class="step-title">설문 결과</div>
+            <div class="step-desc">불편 순위, 이탈 패턴</div>
+            <div class="step-highlight">33명</div>
+          </div>
+
+          <div class="flow-divider"><div class="circle-arrow">▶</div></div>
+
+          <div class="flow-step">
+            <div class="step-number">SLIDE 03</div>
+            <div class="step-title">핵심 인사이트</div>
+            <div class="step-desc">4가지 발견</div>
+            <div class="step-highlight">× 4</div>
+          </div>
+
+          <div class="flow-divider"><div class="circle-arrow">▶</div></div>
+
+          <div class="flow-step">
+            <div class="step-number">SLIDE 04</div>
+            <div class="step-title">문제 분류</div>
+            <div class="step-desc">바로 설계 vs UT 필요</div>
+            <div class="step-highlight">5가지</div>
+          </div>
+
+          <div class="flow-divider"><div class="circle-arrow">▶</div></div>
+
+          <div class="flow-step">
+            <div class="step-number">SLIDE 05</div>
+            <div class="step-title">UT 진행</div>
+            <div class="step-desc">탐색·개인화 검증</div>
+            <div class="step-highlight">→ UT</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">각 장표별 시각화 방법</div>
+        <div class="cards-grid">
+          <!-- Card 1 -->
+          <div class="card highlight">
+            <div class="card-header">
+              <span class="card-subtitle">SLIDE 01 · 리서치 개요</span>
+              <span class="badge">임팩트 장표</span>
+            </div>
+            <div class="card-title">숫자로 신뢰를 먼저 잡는다</div>
+            <div class="card-desc">
+              6,540 / 33 / 30명+ 3개 숫자를 크게 중앙에 배치. 배경은 풀솔리드
+              다크, 레드 강조. 텍스트 최소화하고 숫자만 남긴다.
+            </div>
+            <div class="elements-title">시각화 요소</div>
+            <div class="elements">
+              <span class="element-tag red">대형 KPI 숫자</span>
+              <span class="element-tag">타임라인 바</span>
+              <span class="element-tag">리서치 방법 아이콘</span>
+            </div>
+            <div class="card-tip">
+              PPT 팁 — 숫자 폰트 80~100pt. 단위(건, 명)는 20pt로 작게. 좌측 정렬
+              금지, 중앙 정렬로 임팩트.
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-subtitle">SLIDE 02 · 설문 결과</span>
+              <span class="badge">데이터 장표</span>
+            </div>
+            <div class="card-title">가로 막대 + 한 줄 인사이트</div>
+            <div class="card-desc">
+              불편 순위를 가로 막대그래프로. 1위 항목만 레드 강조. 나머지는
+              그레이. 각 막대 옆에 인사이트 한 줄 텍스트 붙이기.
+            </div>
+            <div class="elements-title">시각화 요소</div>
+            <div class="elements">
+              <span class="element-tag red">가로 막대그래프</span>
+              <span class="element-tag yellow">파이차트 (기기)</span>
+              <span class="element-tag">인사이트 콜아웃</span>
+            </div>
+            <div class="card-tip">
+              PPT 팁 — 모든 막대를 같은 색으로 쓰지 말 것. 핵심 1~2개만 레드,
+              나머지 #333. 퍼센트 숫자는 막대 끝에 인라인으로.
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card highlight">
+            <div class="card-header">
+              <span class="card-subtitle">SLIDE 03 · 핵심 인사이트</span>
+              <span class="badge">핵심 장표</span>
+            </div>
+            <div class="card-title">2×2 카드 + 인터뷰 발화 인용</div>
+            <div class="card-desc">
+              인사이트 4개를 2×2 카드 그리드로. 각 카드 좌상단에 인터뷰 발화
+              이탤릭 인용. 하단에 데이터 출처 배치. 제목은 "행동 동사"로 시작.
+            </div>
+            <div class="elements-title">시각화 요소</div>
+            <div class="elements">
+              <span class="element-tag red">2×2 카드 그리드</span>
+              <span class="element-tag yellow">인터뷰 인용 quote</span>
+              <span class="element-tag">데이터 배지</span>
+            </div>
+            <div class="card-tip">
+              PPT 팁 — 카드 배경 #141414. 좌측 상단 컬러 라인 4px로 인사이트별
+              구분. 텍스트 계층 3단계 (인용→제목→설명) 유지.
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-subtitle">SLIDE 04 · 문제 분류</span>
+              <span class="badge">판단 장표</span>
+            </div>
+            <div class="card-title">5열 카드 + 컬러 분류</div>
+            <div class="card-desc">
+              5가지 문제를 나란히 카드로 배치. "바로 설계" 카드는 그린 테두리,
+              "UT 필요" 카드는 레드 테두리+강조 배경. 시각적으로 즉시 분류.
+            </div>
+            <div class="elements-title">시각화 요소</div>
+            <div class="elements">
+              <span class="element-tag red">5열 카드 레이아웃</span>
+              <span class="element-tag blue">컬러 코딩 분류</span>
+              <span class="element-tag">VOC 건수 숫자</span>
+            </div>
+            <div class="card-tip">
+              PPT 팁 — 카드 하단에 화살표 → UT 진행으로 흐름 연결. 테두리 두께
+              차이로 위계 표현 (UT 필요 = 2pt, 나머지 0.5pt).
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="rules-container">
+          <div class="rules-title">DESIGN RULES FOR PPT</div>
+          <div class="rules-grid">
+            <div class="rule-item">
+              <strong>1장 1메시지</strong> —
+              <span
+                >제목이 곧 결론이어야 합니다. "설문 결과"가 아니라 "48%는
+                관성으로 남고, 한 번에 떠난다"처럼.</span
+              >
+            </div>
+            <div class="rule-item">
+              <strong>레드는 1~2곳만</strong> —
+              <span
+                >티빙 레드(#FF153C)는 포인트에만. 전체에 뿌리면 강조가
+                사라집니다.</span
+              >
+            </div>
+            <div class="rule-item">
+              <strong>숫자는 크게, 설명은 작게</strong> —
+              <span
+                >6,540 / 67.7% 같은 핵심 숫자는 80pt+, 부연 설명은 14pt
+                이하로.</span
+              >
+            </div>
+            <div class="rule-item">
+              <strong>배경 통일</strong> —
+              <span
+                >전 장표 #0D0D0D 다크 배경 유지. 중간에 화이트 배경 섞으면
+                브랜드 톤이 끊깁니다.</span
+              >
+            </div>
+            <div class="rule-item">
+              <strong>인용은 이탤릭으로</strong> —
+              <span
+                >인터뷰 발화는 반드시 " " + 이탤릭 + 그레이 컬러. 데이터와
+                발화를 시각적으로 구분.</span
+              >
+            </div>
+            <div class="rule-item">
+              <strong>출처 배치 필수</strong> —
+              <span
+                >VOC 527건 / 설문 39.4% 처럼 모든 수치 옆에 출처 배치. 신뢰도가
+                포트폴리오 퀄리티를 결정합니다.</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>Tving UX Research Portfolio · 2025</div>
+        <div>Slide Structure Guide</div>
+      </footer>
+    </div>
+  </body>
+</html>
