@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실제 장표 시각화 (Slide Examples)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg-dark: #0D0D0D;
+      --card-bg: #141414;
+      --tving-red: #FF153C;
+      --tving-red-dim: rgba(255, 21, 60, 0.15);
+      --text-main: #FFFFFF;
+      --text-sub: #A3A3A3;
+      --text-dim: #666666;
+      --border-gray: #333333;
+      --green: #00C853;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px;
+      background-color: #000;
+      font-family: 'Pretendard', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+      color: var(--text-main);
+    }
+
+    /* 슬라이드 공통 (16:9 비율) */
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background-color: var(--bg-dark);
+      position: relative;
+      padding: 60px 80px;
+      box-sizing: border-box;
+      border: 1px solid #222;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-header {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 50px;
+      letter-spacing: -0.5px;
+    }
+    
+    .logo {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      color: var(--tving-red);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    /* SLIDE 01: 임팩트 장표 (숫자) */
+    .slide-01 .content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 80px;
+    }
+    .kpi-box {
+      text-align: center;
+    }
+    .kpi-num {
+      font-size: 110px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 20px;
+      font-variant-numeric: tabular-nums;
+    }
+    .kpi-box.main .kpi-num {
+      color: var(--tving-red);
+    }
+    .kpi-unit {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-left: 8px;
+    }
+    .kpi-desc {
+      font-size: 20px;
+      color: var(--text-sub);
+    }
+
+    /* SLIDE 02: 데이터 장표 (막대 그래프) */
+    .slide-02 .content {
+      display: flex;
+      gap: 60px;
+      height: 100%;
+    }
+    .chart-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .bar-label {
+      width: 140px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-align: right;
+    }
+    .bar-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .bar {
+      height: 48px;
+      background: var(--border-gray);
+      border-radius: 4px;
+    }
+    .bar.red {
+      background: var(--tving-red);
+    }
+    .bar-pct {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .bar-pct.red-text { color: var(--tving-red); }
+    .bar-insight {
+      font-size: 18px;
+      color: var(--text-sub);
+      width: 300px;
+    }
+    .bar-insight.highlight {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* SLIDE 03: 핵심 인사이트 (2x2 카드) */
+    .slide-03 .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 30px;
+      height: 100%;
+      padding-bottom: 20px;
+    }
+    .insight-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 36px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .insight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 36px;
+      width: 60px;
+      height: 4px;
+      background: var(--tving-red);
+    }
+    .quote {
+      font-size: 20px;
+      font-style: italic;
+      color: var(--text-sub);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .insight-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-main);
+    }
+    .insight-desc {
+      font-size: 18px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .source-badge {
+      align-self: flex-start;
+      margin-top: 20px;
+      padding: 6px 14px;
+      background: #222;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* SLIDE 04: 문제 분류 (5열 카드) */
+    .slide-04 .content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .cols-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      flex: 1;
+      margin-top: 20px;
+    }
+    .prob-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px 24px;
+      border: 0.5px solid var(--border-gray);
+      display: flex;
+      flex-direction: column;
+    }
+    .prob-card.green {
+      border: 1px solid var(--green);
+    }
+    .prob-card.red {
+      border: 2px solid var(--tving-red);
+      background: var(--tving-red-dim);
+    }
+    .p-type {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .prob-card.green .p-type { color: var(--green); }
+    .prob-card.red .p-type { color: var(--tving-red); }
+    
+    .p-title {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .p-desc {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+    .p-voc {
+      margin-top: auto;
+      padding-top: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+    .bottom-flow {
+      margin-top: 40px;
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      border: 1px solid #333;
+    }
+    .bottom-flow .arrow-red {
+      color: var(--tving-red);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 01 -->
+  <div class="slide slide-01">
+    <div class="logo">tving</div>
+    <div class="slide-header">SLIDE 01. 리서치 개요</div>
+    <div class="content">
+      <div class="kpi-box main">
+        <div class="kpi-num">6,540<span class="kpi-unit">건</span></div>
+        <div class="kpi-desc">대규모 설문 응답자</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-num">33<span class="kpi-unit">명</span></div>
+        <div class="kpi-desc">심층 인터뷰 진행</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-num">30<span class="kpi-unit">명+</span></div>
+        <div class="kpi-desc">UT 진행 대상자</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 02 -->
+  <div class="slide slide-02">
+    <div class="logo">tving</div>
+    <div class="slide-header">SLIDE 02. "48%는 관성으로 남고, 한 번에 떠난다"</div>
+    <div class="content">
+      <div class="chart-area">
+        
+        <div class="bar-row">
+          <div class="bar-label" style="color: #fff">콘텐츠 부족</div>
+          <div class="bar-wrapper">
+            <div class="bar red" style="width: 75%"></div>
+            <span class="bar-pct red-text">67.7%</span>
+          </div>
+          <div class="bar-insight highlight">가장 압도적인 이탈 사유</div>
+        </div>
+
+        <div class="bar-row">
+          <div class="bar-label">오류 및 버그</div>
+          <div class="bar-wrapper">
+            <div class="bar" style="width: 45%"></div>
+            <span class="bar-pct">42.1%</span>
+          </div>
+          <div class="bar-insight">앱 강제 종료 경험 다수</div>
+        </div>
+
+        <div class="bar-row">
+          <div class="bar-label">탐색 어려움</div>
+          <div class="bar-wrapper">
+            <div class="bar" style="width: 35%"></div>
+            <span class="bar-pct">31.5%</span>
+          </div>
+          <div class="bar-insight">홈 화면에서 시청 포기 비율 증가</div>
+        </div>
+
+        <div class="bar-row">
+          <div class="bar-label">개인화 부족</div>
+          <div class="bar-wrapper">
+            <div class="bar" style="width: 20%"></div>
+            <span class="bar-pct">18.9%</span>
+          </div>
+          <div class="bar-insight">"볼 게 없다"는 인식으로 연결됨</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 03 -->
+  <div class="slide slide-03">
+    <div class="logo">tving</div>
+    <div class="slide-header">SLIDE 03. 유저 행동 핵심 인사이트 4가지</div>
+    <div class="content">
+      <div class="insight-card">
+        <div class="quote">"메뉴가 너무 많고 복잡해서 홈에서 바로 나갔어요"</div>
+        <div class="insight-title">탐색을 포기하고 이탈하다</div>
+        <div class="insight-desc">사용자는 복잡한 구조의 메뉴보다 홈 화면 첫인상에서 즉시 시청할 콘텐츠를 결정합니다.</div>
+        <div class="source-badge">VOC 527건</div>
+      </div>
+      
+      <div class="insight-card" style="border-top-color: #0085FF;">
+        <div class="quote">"내가 좋아할 만한 게 안 보여요. 맨날 똑같아요."</div>
+        <div class="insight-title">개인화 추천을 불신하다</div>
+        <div class="insight-desc">동일한 콘텐츠가 반복 노출되면서, 취향에 맞는 초개인화 큐레이션 필요성을 크게 느낍니다.</div>
+        <div class="source-badge">심층 인터뷰 대상자 33명 중 28명</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="quote">"결제는 어차피 관성인데, 해지는 한 순간 이에요"</div>
+        <div class="insight-title">불편함이 누적되어 하차하다</div>
+        <div class="insight-desc">사소한 앱 튕김과 로딩 지연이 반복되면 결국 구독 해지(Churn)로 직결되는 경향이 강합니다.</div>
+        <div class="source-badge">설문 동향 39.4%</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="quote">"검색 결과가 정확하지 않으면 다른 앱을 켭니다."</div>
+        <div class="insight-title">검색 실패가 곧 이탈로 이어지다</div>
+        <div class="insight-desc">검색어 자동완성과 오타 보정 기능 부재가 다른 OTT 서비스로의 환승을 유발합니다.</div>
+        <div class="source-badge">로그 데이터 분석 결과</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 04 -->
+  <div class="slide slide-04">
+    <div class="logo">tving</div>
+    <div class="slide-header">SLIDE 04. 문제 분류 및 후속 UX 진행 방향</div>
+    <div class="content">
+      <div class="cols-5">
+        
+        <div class="prob-card green">
+          <div class="p-type">바로 설계</div>
+          <div class="p-title">뒤로가기 버튼<br>위치 오류 수정</div>
+          <div class="p-desc">플레이어 진입 시 뒤로가기 버튼이 콘텐츠를 가리는 현상</div>
+          <div class="p-voc">VOC 120건</div>
+        </div>
+
+        <div class="prob-card green">
+          <div class="p-type">바로 설계</div>
+          <div class="p-title">검색 결과<br>로딩 속도 개선</div>
+          <div class="p-desc">검색결과 노출 지연 문제 해결 및 뼈대 로딩 UI 적용</div>
+          <div class="p-voc">VOC 245건</div>
+        </div>
+
+        <div class="prob-card red">
+          <div class="p-type">UT 필요</div>
+          <div class="p-title">홈 화면<br>개인화 개편</div>
+          <div class="p-desc">사용자 취향 기반의 맞춤형 콘텐츠 모듈 우선 배치</div>
+          <div class="p-voc">UT 대상 (High)</div>
+        </div>
+
+        <div class="prob-card red">
+          <div class="p-type">UT 필요</div>
+          <div class="p-title">카테고리 뎁스<br>구조 축소</div>
+          <div class="p-desc">현재 3단계인 뎁스를 2단계로 축소하여 탐색 여정 검증</div>
+          <div class="p-voc">UT 대상 (High)</div>
+        </div>
+
+        <div class="prob-card">
+          <div class="p-type">추가 리서치</div>
+          <div class="p-title">결제 플로우<br>전면 개편</div>
+          <div class="p-desc">월간 구독에서 연간 구독으로의 전환 유도 UI/UX 분석</div>
+          <div class="p-voc">데이터 확인 중</div>
+        </div>
+
+      </div>
+
+      <div class="bottom-flow">
+        바로 설계 가능한 항목은 즉각 반영 <span class="arrow-red">➔</span> <span style="color: #fff">핵심 동인(홈 개인화, 탐색 뎁스 축소)에 대해서는 UT 검증 집중</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
