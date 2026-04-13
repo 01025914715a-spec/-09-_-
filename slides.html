@@ -9,6 +9,7 @@
     :root {
       --bg-base: #060606;
       --card-bg: #141414;
+      --surface-1: rgba(255, 255, 255, 0.03);
       --accent: #FF153C;
       --accent-glow: rgba(255, 21, 60, 0.3);
       --text-main: #FFFFFF;
@@ -18,174 +19,176 @@
       --border-line: rgba(255,255,255,0.1);
     }
     body {
-      margin: 0; background: #000;
+      margin: 0; 
+      background: #000;
       color: var(--text-main);
       font-family: 'Pretendard', sans-serif;
       overflow-x: hidden;
-    }
-    .presentation { display: flex; flex-direction: column; align-items: center; gap: 80px; padding: 60px 0; }
-    
-    .slide-wrapper {
-      width: 100%;
-      height: 1080px; /* Initially 1080, transformed by JS */
-      position: relative;
-      display: flex;
-      justify-content: center;
-      transition: height 0.1s;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 100px; 
+      padding: 80px 0;
     }
     
     .slide-container {
-      width: 1920px;
-      height: 1080px;
-      transform-origin: top center;
+      width: 90vw;
+      max-width: 1500px;
+      min-height: 840px; /* Provides 16:9 feel but expands if necessary */
+      height: auto; /* Natural flow */
       background: var(--bg-base);
       border: 1px solid var(--border-line);
       border-radius: 24px;
-      box-shadow: 0 60px 150px rgba(0,0,0,1);
-      position: absolute;
-      top: 0; 
-      padding: 80px 100px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      padding: 60px 80px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      position: relative;
     }
 
     /* Grid BG */
     .slide-container::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 40px 40px; pointer-events: none; z-index: 0;
+      background-size: 40px 40px; pointer-events: none; z-index: 0; border-radius: 24px;
     }
     
-    .content-box { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
+    .content-box { position: relative; z-index: 1; display: flex; flex-direction: column; flex: 1; }
 
     /* Top Nav */
-    .top-nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-line); padding-bottom: 40px; margin-bottom: 60px;}
-    .logo { font-size: 36px; font-weight: 800; color: var(--accent); letter-spacing: -2px; }
-    .slide-tag { font-size: 20px; color: var(--text-sub); letter-spacing: 2px; font-weight: 600; text-transform: uppercase; }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-line); padding-bottom: 30px; margin-bottom: 50px;}
+    .logo { font-size: 32px; font-weight: 800; color: var(--accent); letter-spacing: -1.5px; }
+    .slide-tag { font-size: 18px; color: var(--text-sub); letter-spacing: 2px; font-weight: 600; text-transform: uppercase; }
 
     /* Titles */
-    .slide-title { font-size: 64px; font-weight: 700; margin: 0 0 50px 0; letter-spacing: -1.5px; }
+    .slide-title { font-size: 48px; font-weight: 700; margin: 0 0 40px 0; letter-spacing: -1px; }
     .slide-title span.hl { color: var(--accent); }
 
     /* SLIDE 01: IMPACT */
-    .s1-content { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 100px; }
+    .s1-content { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 80px; margin-bottom: 40px; }
     
-    .timeline { display: flex; justify-content: space-between; align-items: center; position: relative; width: 80%; margin: 0 auto; padding: 0 40px;}
-    .timeline::before { content:''; position:absolute; top: 24px; left: 100px; right: 100px; height: 2px; background: var(--border-line); z-index: -1; }
-    .tl-node { display: flex; flex-direction: column; align-items: center; gap: 20px; background: var(--bg-base); padding: 0 20px;}
-    .tl-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--text-dim); border: 4px solid var(--bg-base); box-shadow: 0 0 0 2px var(--text-dim); }
+    .timeline { display: flex; justify-content: space-between; align-items: center; position: relative; width: 100%; max-width: 900px; margin: 0 auto;}
+    .timeline::before { content:''; position:absolute; top: 20px; left: 30px; right: 30px; height: 2px; background: var(--border-line); z-index: -1; }
+    .tl-node { display: flex; flex-direction: column; align-items: center; gap: 16px; background: var(--bg-base); padding: 0 16px;}
+    .tl-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--text-dim); border: 4px solid var(--bg-base); box-shadow: 0 0 0 2px var(--text-dim); }
     .tl-node.active .tl-dot { background: var(--accent); box-shadow: 0 0 0 2px var(--accent), 0 0 20px var(--accent-glow); }
-    .tl-label { font-size: 22px; font-weight: 600; color: var(--text-sub); }
+    .tl-label { font-size: 18px; font-weight: 600; color: var(--text-sub); }
     .tl-node.active .tl-label { color: var(--text-main); }
     
-    .kpi-row { display: flex; justify-content: center; gap: 120px; }
+    .kpi-row { display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap; gap: 40px;}
     .kpi-item { text-align: center; }
-    .kpi-num { font-size: 150px; font-weight: 800; color: var(--text-main); line-height: 1; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; justify-content: center;}
-    .kpi-unit { font-size: 40px; font-weight: 600; color: var(--text-sub); margin-left: 10px; }
+    .kpi-num { font-size: 110px; font-weight: 800; color: var(--text-main); line-height: 1; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; justify-content: center;}
+    .kpi-unit { font-size: 28px; font-weight: 600; color: var(--text-sub); margin-left: 8px; }
     .kpi-item.accent .kpi-num { color: var(--accent); text-shadow: 0 20px 60px var(--accent-glow); }
-    .kpi-desc { font-size: 32px; font-weight: 500; color: var(--text-sub); margin-top: 20px; }
+    .kpi-desc { font-size: 24px; font-weight: 500; color: var(--text-sub); margin-top: 16px; }
 
     /* SLIDE 02: DATA */
-    .s2-content { flex: 1; display: flex; gap: 80px; align-items: stretch; }
-    .bar-chart-area { flex: 6; display: flex; flex-direction: column; justify-content: center; gap: 40px; }
-    .pie-chart-area { flex: 4; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--card-bg); border-radius: 24px; padding: 60px; border: 1px solid var(--border-line); }
+    .s2-content { flex: 1; display: flex; gap: 60px; align-items: center;}
+    .bar-chart-area { flex: 6; display: flex; flex-direction: column; gap: 32px; }
+    .pie-chart-area { flex: 4; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--card-bg); border-radius: 20px; padding: 40px; border: 1px solid var(--border-line); }
     
     .c-row { display: flex; align-items: center; }
-    .c-label { width: 180px; font-size: 28px; font-weight: 600; color: var(--text-sub); }
-    .c-wrap { flex: 1; max-width: 600px; display: flex; align-items: center; position: relative; }
-    .c-bar { height: 40px; background: #333; border-radius: 0 8px 8px 0; }
-    .c-bar.accent { background: var(--accent); box-shadow: 0 0 30px var(--accent-glow); }
-    .c-val { font-size: 32px; font-weight: 700; margin-left: 24px; }
+    .c-label { width: 140px; font-size: 20px; font-weight: 600; color: var(--text-sub); text-align: right; margin-right: 20px;}
+    .c-wrap { flex: 1; max-width: 450px; display: flex; align-items: center; position: relative; }
+    .c-bar { height: 32px; background: #333; border-radius: 0 6px 6px 0; }
+    .c-bar.accent { background: linear-gradient(90deg, #b00723, #FF153C); box-shadow: 0 0 20px var(--accent-glow); }
+    .c-val { font-size: 24px; font-weight: 700; margin-left: 16px; }
     .c-val.accent { color: var(--accent); }
-    .c-msg { font-size: 24px; color: var(--text-sub); margin-left: auto; padding-left: 20px;}
+    .c-msg { font-size: 18px; color: var(--text-sub); margin-left: auto; padding-left: 16px; white-space: nowrap;}
     .c-msg.accent { color: #fff; font-weight: 600; }
     
-    .pie-chart { width: 340px; height: 340px; border-radius: 50%; background: conic-gradient(var(--accent) 0deg 270deg, #333 270deg 324deg, #444 324deg 360deg); display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-    .pie-inner { width: 200px; height: 200px; background: var(--card-bg); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .pie-t1 { font-size: 24px; color: var(--text-sub); }
-    .pie-t2 { font-size: 48px; font-weight: 800; color: var(--text-main); margin-top: 5px;}
+    .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--accent) 0deg 270deg, #333 270deg 324deg, #444 324deg 360deg); display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .pie-inner { width: 170px; height: 170px; background: var(--card-bg); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);}
+    .pie-t1 { font-size: 18px; color: var(--text-sub); }
+    .pie-t2 { font-size: 36px; font-weight: 800; color: var(--text-main); margin-top: 4px;}
     
-    .callout { background: rgba(255,21,60,0.1); border-left: 6px solid var(--accent); padding: 30px; border-radius: 0 16px 16px 0; margin-top: 50px; width: 100%; box-sizing: border-box; }
-    .callout p { margin: 0; font-size: 24px; line-height: 1.6; color: #fff; }
+    .callout { background: rgba(255,21,60,0.1); border-left: 5px solid var(--accent); padding: 20px; border-radius: 0 12px 12px 0; margin-top: 40px; width: 100%; box-sizing: border-box; }
+    .callout p { margin: 0; font-size: 18px; line-height: 1.6; color: #fff; }
 
     /* SLIDE 03: 2x2 CARDS */
-    .s3-content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 40px; }
-    .glass-card { background: var(--card-bg); border: 1px solid var(--border-line); border-radius: 20px; padding: 50px 60px; display: flex; flex-direction: column; position: relative; }
-    .card-line { position: absolute; top: -1px; left: 50px; width: 80px; height: 4px; background: #555; }
+    .s3-content { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
+    .glass-card { background: var(--card-bg); border: 1px solid var(--border-line); border-radius: 16px; padding: 40px; display: flex; flex-direction: column; position: relative; }
+    .card-line { position: absolute; top: -1px; left: 40px; width: 60px; height: 4px; background: #555; }
     .card-line.accent { background: var(--accent); box-shadow: 0 0 20px var(--accent); }
     
-    .q-wrap { display: flex; gap: 16px; margin-bottom: 24px; }
-    .q-icon { font-size: 40px; color: var(--text-dim); font-family: serif; font-style: italic; line-height: 1; }
+    .q-wrap { display: flex; gap: 12px; margin-bottom: 20px; align-items: flex-start;}
+    .q-icon { font-size: 32px; color: var(--text-dim); font-family: serif; font-style: italic; line-height: 1; }
     .q-icon.accent { color: var(--accent); }
-    .q-text { font-size: 32px; font-style: italic; color: var(--text-sub); line-height: 1.4; }
+    .q-text { font-size: 24px; font-style: italic; color: var(--text-sub); line-height: 1.5; }
     
-    .g-title { font-size: 40px; font-weight: 700; margin-bottom: 24px; color: var(--text-main); }
-    .g-desc { font-size: 26px; line-height: 1.6; color: var(--text-sub); flex: 1; }
-    .g-badge { align-self: flex-start; padding: 12px 24px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 20px; font-weight: 600; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); }
+    .g-title { font-size: 30px; font-weight: 700; margin-bottom: 16px; color: var(--text-main); line-height: 1.4;}
+    .g-desc { font-size: 20px; line-height: 1.6; color: var(--text-sub); margin-bottom: 30px;}
+    .g-badge { align-self: flex-start; margin-top: auto; padding: 10px 18px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 16px; font-weight: 600; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); }
 
     /* SLIDE 04: 5 COLS */
     .s4-content { flex: 1; display: flex; flex-direction: column; }
-    .cols-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px; flex: 1; }
-    .p-card { background: var(--card-bg); border: 1px solid var(--border-line); border-radius: 20px; padding: 40px 30px; display: flex; flex-direction: column; }
+    .cols-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; flex: 1; }
+    .p-card { background: var(--card-bg); border: 1px solid var(--border-line); border-radius: 16px; padding: 30px 24px; display: flex; flex-direction: column; }
     .p-card.green { border: 2px solid var(--green); border-bottom-width: 1px; }
     .p-card.green .p-type { color: var(--green); }
-    .p-card.red { border: 3px solid var(--accent); background: rgba(255,21,60,0.05); box-shadow: 0 20px 50px rgba(255,21,60,0.1); }
+    .p-card.red { border: 3px solid var(--accent); background: rgba(255,21,60,0.05); box-shadow: 0 10px 30px rgba(255,21,60,0.1); }
     .p-card.red .p-type { color: var(--accent); }
     
-    .p-type { font-size: 22px; font-weight: 700; margin-bottom: 30px; }
-    .p-title { font-size: 36px; font-weight: 700; line-height: 1.4; margin-bottom: 24px; }
-    .p-desc { font-size: 22px; color: var(--text-sub); line-height: 1.6; flex: 1; }
-    .p-voc { font-size: 20px; color: var(--text-dim); margin-top: 30px; font-weight: 600;}
+    .p-type { font-size: 18px; font-weight: 700; margin-bottom: 24px; }
+    .p-title { font-size: 26px; font-weight: 700; line-height: 1.4; margin-bottom: 16px; }
+    .p-desc { font-size: 18px; color: var(--text-sub); line-height: 1.6; margin-bottom: 24px;}
+    .p-voc { margin-top: auto; font-size: 16px; color: var(--text-dim); font-weight: 600;}
     
-    .bottom-flow { margin-top: 50px; background: var(--card-bg); border: 1px solid var(--border-line); border-radius: 16px; padding: 30px 40px; display: flex; align-items: center; justify-content: center; gap: 30px; }
-    .f-text { font-size: 26px; color: var(--text-sub); }
+    .bottom-flow { margin-top: 40px; background: var(--card-bg); border: 1px solid var(--border-line); border-radius: 12px; padding: 24px 30px; display: flex; align-items: center; justify-content: center; gap: 24px; }
+    .f-text { font-size: 20px; color: var(--text-sub); }
     .f-text strong { color: #fff; font-weight: 700; }
-    .f-arrow { font-size: 32px; color: var(--accent); font-weight: 900; }
+    .f-arrow { font-size: 24px; color: var(--accent); font-weight: 900; }
+
+    @media (max-width: 1600px) {
+      .slide-container { padding: 50px 60px; }
+      .slide-title { font-size: 40px; }
+      .g-title { font-size: 26px; }
+      .q-text { font-size: 20px; }
+      .g-desc { font-size: 18px; }
+      .p-title { font-size: 22px; }
+      .p-desc { font-size: 16px; }
+      .kpi-num { font-size: 90px; }
+    }
   </style>
 </head>
 <body>
 
-<div class="presentation">
-  
   <!-- SLIDE 01: 임팩트 장표 (숫자로 신뢰를 먼저 잡는다) -->
-  <div class="slide-wrapper">
-    <div class="slide-container">
-      <div class="content-box">
-        <div class="top-nav">
-          <div class="logo">tving</div>
-          <div class="slide-tag">01 / 숫자로 신뢰를 먼저 잡는다 (임팩트 장표)</div>
-        </div>
-        <div class="s1-content">
-          <div class="timeline">
-            <div class="tl-node">
-              <div class="tl-dot"></div>
-              <div class="tl-label">24.11 로그/설문</div>
-            </div>
-            <div class="tl-node">
-              <div class="tl-dot"></div>
-              <div class="tl-label">24.12 데스크 리서치</div>
-            </div>
-            <div class="tl-node active">
-              <div class="tl-dot"></div>
-              <div class="tl-label">25.01 검증 단계</div>
-            </div>
+  <div class="slide-container">
+    <div class="content-box">
+      <div class="top-nav">
+        <div class="logo">tving</div>
+        <div class="slide-tag">01 / 숫자로 신뢰를 먼저 잡는다 (임팩트 장표)</div>
+      </div>
+      <div class="s1-content">
+        <div class="timeline">
+          <div class="tl-node">
+            <div class="tl-dot"></div>
+            <div class="tl-label">24.11 로그/설문</div>
           </div>
-          
-          <div class="kpi-row">
-            <div class="kpi-item accent">
-              <div class="kpi-num">6,540<span class="kpi-unit">건</span></div>
-              <div class="kpi-desc">대규모 정량 설문 응답</div>
-            </div>
-            <div class="kpi-item">
-              <div class="kpi-num">33<span class="kpi-unit">명</span></div>
-              <div class="kpi-desc">이탈 유저 심층 인터뷰</div>
-            </div>
-            <div class="kpi-item">
-              <div class="kpi-num">30<span class="kpi-unit">+명</span></div>
-              <div class="kpi-desc">신규 UX/UI UT 참가</div>
-            </div>
+          <div class="tl-node">
+            <div class="tl-dot"></div>
+            <div class="tl-label">24.12 데스크 리서치</div>
+          </div>
+          <div class="tl-node active">
+            <div class="tl-dot"></div>
+            <div class="tl-label">25.01 검증 단계</div>
+          </div>
+        </div>
+        
+        <div class="kpi-row">
+          <div class="kpi-item accent">
+            <div class="kpi-num">6,540<span class="kpi-unit">건</span></div>
+            <div class="kpi-desc">대규모 정량 설문 응답</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-num">33<span class="kpi-unit">명</span></div>
+            <div class="kpi-desc">이탈 유저 심층 인터뷰</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-num">30<span class="kpi-unit">+명</span></div>
+            <div class="kpi-desc">신규 UX/UI UT 참가</div>
           </div>
         </div>
       </div>
@@ -193,52 +196,50 @@
   </div>
 
   <!-- SLIDE 02: 가로 막대그래프 (가로 막대 + 한 줄 인사이트) -->
-  <div class="slide-wrapper">
-    <div class="slide-container">
-      <div class="content-box">
-        <div class="top-nav">
-          <div class="logo">tving</div>
-          <div class="slide-tag">02 / 가로 막대 + 한 줄 인사이트 (가로 막대그래프)</div>
+  <div class="slide-container">
+    <div class="content-box">
+      <div class="top-nav">
+        <div class="logo">tving</div>
+        <div class="slide-tag">02 / 가로 막대 + 한 줄 인사이트 (가로 막대그래프)</div>
+      </div>
+      <div class="slide-title">유저의 <span class="hl">48%</span>는 새로운 콘텐츠에 정착하지 못하고 떠난다</div>
+      
+      <div class="s2-content">
+        <div class="bar-chart-area">
+          <div class="c-row">
+            <div class="c-label" style="color: #fff">콘텐츠 부족</div>
+            <div class="c-wrap">
+              <div class="c-bar accent" style="width: 75%"></div>
+              <div class="c-val accent">67.7%</div>
+            </div>
+            <div class="c-msg accent">가장 압도적인 이탈 동인으로 1위</div>
+          </div>
+          <div class="c-row">
+            <div class="c-label">잦은 오류/버그</div>
+            <div class="c-wrap"><div class="c-bar" style="width: 45%"></div><div class="c-val">42.1%</div></div>
+            <div class="c-msg">앱 실행 중 튕김 현상 다수</div>
+          </div>
+          <div class="c-row">
+            <div class="c-label">초직관성 부족</div>
+            <div class="c-wrap"><div class="c-bar" style="width: 33%"></div><div class="c-val">31.5%</div></div>
+            <div class="c-msg">초기 홈 화면에서의 체류 포기</div>
+          </div>
+          <div class="c-row">
+            <div class="c-label">맞춤 추천 실패</div>
+            <div class="c-wrap"><div class="c-bar" style="width: 20%"></div><div class="c-val">18.9%</div></div>
+            <div class="c-msg">알고리즘 큐레이션 신뢰도 하락</div>
+          </div>
         </div>
-        <div class="slide-title">유저의 <span class="hl">48%</span>는 새로운 콘텐츠에 정착하지 못하고 떠난다</div>
         
-        <div class="s2-content">
-          <div class="bar-chart-area">
-            <div class="c-row">
-              <div class="c-label" style="color: #fff">콘텐츠 부족</div>
-              <div class="c-wrap">
-                <div class="c-bar accent" style="width: 75%"></div>
-                <div class="c-val accent">67.7%</div>
-              </div>
-              <div class="c-msg accent">가장 압도적인 이탈 동인으로 1위</div>
-            </div>
-            <div class="c-row">
-              <div class="c-label">잦은 오류/버그</div>
-              <div class="c-wrap"><div class="c-bar" style="width: 45%"></div><div class="c-val">42.1%</div></div>
-              <div class="c-msg">앱 실행 중 튕김 현상 다수</div>
-            </div>
-            <div class="c-row">
-              <div class="c-label">초직관성 부족</div>
-              <div class="c-wrap"><div class="c-bar" style="width: 33%"></div><div class="c-val">31.5%</div></div>
-              <div class="c-msg">초기 홈 화면에서의 체류 포기</div>
-            </div>
-            <div class="c-row">
-              <div class="c-label">맞춤 추천 실패</div>
-              <div class="c-wrap"><div class="c-bar" style="width: 20%"></div><div class="c-val">18.9%</div></div>
-              <div class="c-msg">알고리즘 큐레이션 신뢰도 하락</div>
+        <div class="pie-chart-area">
+          <div class="pie-chart">
+            <div class="pie-inner">
+              <div class="pie-t1">모바일 접속 비중</div>
+              <div class="pie-t2">75%</div>
             </div>
           </div>
-          
-          <div class="pie-chart-area">
-            <div class="pie-chart">
-              <div class="pie-inner">
-                <div class="pie-t1">모바일 접속 비중</div>
-                <div class="pie-t2">75%</div>
-              </div>
-            </div>
-            <div class="callout">
-              <p>이탈의 <strong>절대 다수(75%)</strong>는 모바일 Web/App 환경에서 발생합니다. 모바일 화면의 시각적 피로도 개선이 우선되어야 합니다.</p>
-            </div>
+          <div class="callout">
+            <p>이탈의 <strong>절대 다수(75%)</strong>는 모바일 Web/App 환경에서 발생합니다. 모바일 화면의 시각적 피로도 개선이 우선되어야 합니다.</p>
           </div>
         </div>
       </div>
@@ -246,143 +247,117 @@
   </div>
 
   <!-- SLIDE 03: 2x2 카드 그리드 (2x2카드 + 인터뷰 발화 인용) -->
-  <div class="slide-wrapper">
-    <div class="slide-container">
-      <div class="content-box">
-        <div class="top-nav">
-          <div class="logo">tving</div>
-          <div class="slide-tag">03 / 2x2카드 + 인터뷰 발화 인용 (2x2 카드 그리드)</div>
+  <div class="slide-container">
+    <div class="content-box">
+      <div class="top-nav">
+        <div class="logo">tving</div>
+        <div class="slide-tag">03 / 2x2카드 + 인터뷰 발화 인용 (2x2 카드 그리드)</div>
+      </div>
+      <div class="slide-title">행동 데이터가 증명하는 유저 인사이트</div>
+      
+      <div class="s3-content">
+        <div class="glass-card">
+          <div class="card-line accent"></div>
+          <div class="q-wrap">
+            <div class="q-icon accent">"</div>
+            <div class="q-text">메뉴가 너무 많고 뎁스가 깊어서 바로 나갔어요.</div>
+          </div>
+          <div class="g-title">홈 화면 즉각 탐색을 포기하다</div>
+          <div class="g-desc">사용자는 복잡한 구조를 학습하지 않으며, 홈 탭 진입 후 5초 내에 흥미로운 콘텐츠가 없으면 타 앱으로 넘어갑니다.</div>
+          <div class="g-badge">로그인 유저 VOC 527건</div>
         </div>
-        <div class="slide-title">행동 데이터가 증명하는 유저 인사이트</div>
-        
-        <div class="s3-content">
-          <div class="glass-card">
-            <div class="card-line accent"></div>
-            <div class="q-wrap">
-              <div class="q-icon accent">"</div>
-              <div class="q-text">메뉴가 너무 많고 뎁스가 깊어서 바로 나갔어요.</div>
-            </div>
-            <div class="g-title">홈 화면 즉각 탐색을 포기하다</div>
-            <div class="g-desc">사용자는 복잡한 구조를 학습하지 않으며, 홈 탭 진입 후 5초 내에 흥미로운 콘텐츠가 없으면 타 앱으로 넘어갑니다.</div>
-            <div class="g-badge">로그인 유저 VOC 527건</div>
-          </div>
 
-          <div class="glass-card">
-            <div class="card-line" style="background:#0085FF"></div>
-            <div class="q-wrap">
-              <div class="q-icon" style="color:#0085FF">"</div>
-              <div class="q-text">알고리즘 추천이 맨날 똑같아서 볼 게 없어요.</div>
-            </div>
-            <div class="g-title">티빙의 추천 리스트를 불신하다</div>
-            <div class="g-desc">시청 기록에 기반한 추천 결과가 매우 단조로워, 큐레이션을 활용하지 않고 커뮤니티 추천글을 보고 검색합니다.</div>
-            <div class="g-badge">FGI 인터뷰 33명 중 28명</div>
+        <div class="glass-card">
+          <div class="card-line" style="background:#0085FF"></div>
+          <div class="q-wrap">
+            <div class="q-icon" style="color:#0085FF">"</div>
+            <div class="q-text">알고리즘 추천이 맨날 똑같아서 볼 게 없어요.</div>
           </div>
+          <div class="g-title">티빙의 추천 리스트를 불신하다</div>
+          <div class="g-desc">시청 기록에 기반한 추천 결과가 매우 단조로워, 큐레이션을 활용하지 않고 커뮤니티 추천글을 보고 검색합니다.</div>
+          <div class="g-badge">FGI 인터뷰 33명 중 28명</div>
+        </div>
 
-          <div class="glass-card">
-            <div class="card-line"></div>
-            <div class="q-wrap">
-              <div class="q-icon">"</div>
-              <div class="q-text">구독 유지는 무지성인데, 해지는 작은 불편함에서 와요.</div>
-            </div>
-            <div class="g-title">사소한 환경 페인포인트에 하차하다</div>
-            <div class="g-desc">단순한 플레이어 멈춤, 자막 오류 한두 번이 한계치에 다다르면 경쟁 서비스 통합 구독 여부와 맞물려 즉시 해지됩니다.</div>
-            <div class="g-badge">해지 사유 설문 39.4%</div>
+        <div class="glass-card">
+          <div class="card-line"></div>
+          <div class="q-wrap">
+            <div class="q-icon">"</div>
+            <div class="q-text">구독 유지는 무지성인데, 해지는 작은 불편함에서 와요.</div>
           </div>
+          <div class="g-title">사소한 환경 페인포인트에 하차하다</div>
+          <div class="g-desc">단순한 플레이어 멈춤, 자막 오류 한두 번이 한계치에 다다르면 경쟁 서비스 통합 구독 여부와 맞물려 즉시 해지됩니다.</div>
+          <div class="g-badge">해지 사유 설문 39.4%</div>
+        </div>
 
-          <div class="glass-card">
-            <div class="card-line"></div>
-            <div class="q-wrap">
-              <div class="q-icon">"</div>
-              <div class="q-text">띄어쓰기 한 번 틀렸다고 안 나오면 차라리 다른 곳 켭니다.</div>
-            </div>
-            <div class="g-title">빈약한 검색 경험이 이탈을 가속하다</div>
-            <div class="g-desc">검색어 오타 보정이 제공되지 않아 검색 실패(No Result) 화면을 마주하는 비중이 타사 대비 현저히 높습니다.</div>
-            <div class="g-badge">검색 로그 행동 분석</div>
+        <div class="glass-card">
+          <div class="card-line"></div>
+          <div class="q-wrap">
+            <div class="q-icon">"</div>
+            <div class="q-text">띄어쓰기 한 번 틀렸다고 안 나오면 차라리 다른 곳 켭니다.</div>
           </div>
+          <div class="g-title">빈약한 검색 경험이 이탈을 가속하다</div>
+          <div class="g-desc">검색어 오타 보정이 제공되지 않아 검색 실패(No Result) 화면을 마주하는 비중이 타사 대비 현저히 높습니다.</div>
+          <div class="g-badge">검색 로그 행동 분석</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- SLIDE 04: 5열 카드 레이아웃 (5열 카드 + 컬러 분류) -->
-  <div class="slide-wrapper">
-    <div class="slide-container">
-      <div class="content-box">
-        <div class="top-nav">
-          <div class="logo">tving</div>
-          <div class="slide-tag">04 / 5열 카드 + 컬러 분류 (5열 카드 레이아웃)</div>
-        </div>
-        <div class="slide-title">배포와 검증의 문제 분류 진행 방향</div>
-        
-        <div class="s4-content">
-          <div class="cols-5">
-            <div class="p-card green">
-              <div class="p-type">바로 설계 (Green)</div>
-              <div class="p-title">뒤로가기 위치<br>조정 (Player)</div>
-              <div class="p-desc">VOD 진입 시 시스템 뒤로가기와 UI 겹침 현상을 즉시 수정합니다.</div>
-              <div class="p-voc">VOC 120건</div>
-            </div>
-            
-            <div class="p-card green">
-              <div class="p-type">바로 설계 (Green)</div>
-              <div class="p-title">검색 지연 보완<br>스켈레톤 적용</div>
-              <div class="p-desc">로딩 체감 시간을 줄이기 위해 텍스트 스켈레톤 UI를 신속하게 배포합니다.</div>
-              <div class="p-voc">VOC 245건</div>
-            </div>
-
-            <div class="p-card red">
-              <div class="p-type">UT 필요 (Red)</div>
-              <div class="p-title">홈 맞춤 추천<br>큐레이션 개편</div>
-              <div class="p-desc">타사 UI를 차용한 수평적 추천 모듈의 사용자 정량적 CTR을 UT로 검증합니다.</div>
-              <div class="p-voc">우선순위 High</div>
-            </div>
-
-            <div class="p-card red">
-              <div class="p-type">UT 필요 (Red)</div>
-              <div class="p-title">카테고리 뎁스<br>대규모 축소</div>
-              <div class="p-desc">기존 3단계를 2단계로 축소했을 때 탐색 여정 변화와 혼란 가능성을 A/B 테스트 및 UT로 검증.</div>
-              <div class="p-voc">우선순위 High</div>
-            </div>
-
-            <div class="p-card border-gray">
-              <div class="p-type" style="color:var(--text-sub)">데이터 관망 (Gray)</div>
-              <div class="p-title">직접 구독 결제<br>플로우 개편</div>
-              <div class="p-desc">통신사 제휴 요금제와 직접 결제 간의 UI 충돌 부분 로그 데이터 추가 수집 후 결정합니다.</div>
-              <div class="p-voc">Data 수집 중</div>
-            </div>
+  <div class="slide-container">
+    <div class="content-box">
+      <div class="top-nav">
+        <div class="logo">tving</div>
+        <div class="slide-tag">04 / 5열 카드 + 컬러 분류 (5열 카드 레이아웃)</div>
+      </div>
+      <div class="slide-title">배포와 검증의 문제 분류 진행 방향</div>
+      
+      <div class="s4-content">
+        <div class="cols-5">
+          <div class="p-card green">
+            <div class="p-type">바로 설계 (Green)</div>
+            <div class="p-title">뒤로가기 위치<br>조정 (Player)</div>
+            <div class="p-desc">VOD 진입 시 시스템 뒤로가기와 UI 겹침 현상을 즉시 수정합니다.</div>
+            <div class="p-voc">VOC 120건</div>
           </div>
           
-          <div class="bottom-flow">
-            <div class="f-text">단순 Usability 이슈(바로 설계)는 <strong>즉시 설계하여 배포</strong></div>
-            <div class="f-arrow">➔</div>
-            <div class="f-text">가치 판단이 필요한 <strong>핵심 동인(UT 필요)은 집중 UT 검증</strong> 후 반영 결정</div>
+          <div class="p-card green">
+            <div class="p-type">바로 설계 (Green)</div>
+            <div class="p-title">검색 지연 보완<br>스켈레톤 적용</div>
+            <div class="p-desc">로딩 체감 시간을 줄이기 위해 텍스트 스켈레톤 UI를 신속하게 배포합니다.</div>
+            <div class="p-voc">VOC 245건</div>
           </div>
+
+          <div class="p-card red">
+            <div class="p-type">UT 필요 (Red)</div>
+            <div class="p-title">홈 맞춤 추천<br>큐레이션 개편</div>
+            <div class="p-desc">타사 UI를 차용한 수평적 추천 모듈의 사용자 정량적 CTR을 UT로 검증합니다.</div>
+            <div class="p-voc">우선순위 High</div>
+          </div>
+
+          <div class="p-card red">
+            <div class="p-type">UT 필요 (Red)</div>
+            <div class="p-title">카테고리 뎁스<br>대규모 축소</div>
+            <div class="p-desc">기존 3단계를 2단계로 축소했을 때 탐색 여정 변화와 혼란 가능성을 A/B 테스트 및 UT로 검증.</div>
+            <div class="p-voc">우선순위 High</div>
+          </div>
+
+          <div class="p-card border-gray">
+            <div class="p-type" style="color:var(--text-sub)">데이터 관망 (Gray)</div>
+            <div class="p-title">직접 구독 결제<br>플로우 개편</div>
+            <div class="p-desc">통신사 제휴 요금제와 직접 결제 간의 UI 충돌 부분 로그 데이터 추가 수집 후 결정합니다.</div>
+            <div class="p-voc">Data 수집 중</div>
+          </div>
+        </div>
+        
+        <div class="bottom-flow">
+          <div class="f-text">단순 Usability 이슈(바로 설계)는 <strong>즉시 설계하여 배포</strong></div>
+          <div class="f-arrow">➔</div>
+          <div class="f-text">가치 판단이 필요한 <strong>핵심 동인(UT 필요)은 집중 UT 검증</strong> 후 반영 결정</div>
         </div>
       </div>
     </div>
   </div>
-
-</div>
-
-<script>
-  function scalePresentation() {
-    const wrappers = document.querySelectorAll('.slide-wrapper');
-    const vw = window.innerWidth;
-    
-    wrappers.forEach(wrapper => {
-      const container = wrapper.querySelector('.slide-container');
-      // Calculate scale to fit width: 90% of screen, capped at 1.0
-      let scale = (vw * 0.9) / 1920;
-      if (scale > 1) scale = 1;
-      
-      container.style.transform = `scale(${scale})`;
-      wrapper.style.height = `${1080 * scale}px`;
-    });
-  }
-
-  window.addEventListener('resize', scalePresentation);
-  scalePresentation();
-</script>
 
 </body>
 </html>
